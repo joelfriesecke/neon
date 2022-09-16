@@ -1,7 +1,11 @@
 import InventoryList from './InventoryList'
 
 function Inventory() {
-    console.log(generateTier().item.name);
+  const test = [];
+  for (let i = 0; i < 100; i++) {
+    test.push(generateNeon().item.name);
+  }
+    console.log(test);
     return (
       <div className="max-w-screen-xl mx-auto">
         <div className="flex"></div>
@@ -14,11 +18,16 @@ function Inventory() {
 
 export default Inventory
 
-function generateTier() {
-  const weights = neonCollection.map((item) => (
-    item.prob
+function generateNeon() {
+  const tiersWeight = neonCollection.map((tiers) => (
+    tiers.prob
   ));
-  return weightedRandom(neonCollection, weights);
+  const tierItem = weightedRandom(neonCollection, tiersWeight);
+  const neonsWeight = tierItem.item.neons.map((neons) => (
+    neons.prob
+  ));
+  const neons = tierItem.item.neons;
+  return weightedRandom(neons, neonsWeight)
 }
 
 function weightedRandom(items, weights) {
@@ -30,25 +39,14 @@ function weightedRandom(items, weights) {
     throw new Error('Items must not be empty');
   }
 
-  // Preparing the cumulative weights array.
-  // For example:
-  // - weights = [1, 4, 3]
-  // - cumulativeWeights = [1, 5, 8]
   const cumulativeWeights = [];
   for (let i = 0; i < weights.length; i += 1) {
     cumulativeWeights[i] = weights[i] + (cumulativeWeights[i - 1] || 0);
   }
 
-  // Getting the random number in a range of [0...sum(weights)]
-  // For example:
-  // - weights = [1, 4, 3]
-  // - maxCumulativeWeight = 8
-  // - range for the random number is [0...8]
   const maxCumulativeWeight = cumulativeWeights[cumulativeWeights.length - 1];
   const randomNumber = maxCumulativeWeight * Math.random();
 
-  // Picking the random item based on its weight.
-  // The items with higher weight will be picked more often.
   for (let itemIndex = 0; itemIndex < items.length; itemIndex += 1) {
     if (cumulativeWeights[itemIndex] >= randomNumber) {
       return {
@@ -65,8 +63,8 @@ const neonCollection = [
     name: 'Diamond',
     prob: 0.1,
     neons: [
-      {id: 100, name: 'Blueberryneon'},
-      {id: 101, name: 'Neondragon'},
+      {id: 100, name: 'Blueberryneon', prob: 0.2},
+      {id: 101, name: 'Neondragon', prob: 0.8},
     ]
   },
   {
@@ -74,9 +72,9 @@ const neonCollection = [
     name: 'Gold',
     prob: 0.3,
     neons: [
-      {id: 200, name: 'Neonturtle'},
-      {id: 201, name: 'Dolpino Sparkle'},
-      {id: 202, name: 'Spironeon'},
+      {id: 200, name: 'Neonturtle', prob: 0.2},
+      {id: 201, name: 'Dolpino Sparkle', prob: 0.3},
+      {id: 202, name: 'Spironeon', prob: 0.5},
     ]
   },
   {
@@ -84,9 +82,9 @@ const neonCollection = [
     name: 'Silver',
     prob: 0.6,
     neons: [
-      {id: 300, name: 'Neonjoel'},
-      {id: 301, name: 'Dolpino Lorenz'},
-      {id: 302, name: 'Pingu'},
+      {id: 300, name: 'Neonjoel', prob: 0.3},
+      {id: 301, name: 'Dolpino Lorenz', prob: 0.3},
+      {id: 302, name: 'Pingu', prob: 0.3},
     ]
   },
 ]
