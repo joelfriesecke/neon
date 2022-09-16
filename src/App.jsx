@@ -4,7 +4,7 @@ import Item from './components/item'
 
 function App() {
   const itemList = [
-    {uid: 'njf8934234d', userid: 'firebasecollectionid', name: 101, color: 202, rarity: 301}, 
+    {uid: 'njf8934234d', userid: 'firebasecollectionid', nameId: 101, collectionId: 300},
   ]
   return (
     <div className="App">
@@ -14,3 +14,4 @@ function App() {
 }
 
 export default App
+
