@@ -12,11 +12,8 @@ function InventoryItem(props) {
 
 export default InventoryItem
 
-
-
 function getName(rarityId, nameId) {
   const tiers = neonCollection.find(x => x.id === rarityId);
-  console.log(tiers);
   return tiers.neons.find(x => x.id === nameId);
 }
 
