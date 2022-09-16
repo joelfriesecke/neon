@@ -1,14 +1,11 @@
-
 import './assets/sass/app.sass'
-import Item from './components/item'
+import Inventory from './components/Inventory'
 
 function App() {
-  const itemList = [
-    {uid: 'njf8934234d', userid: 'firebasecollectionid', nameId: 100, collectionId: 10},
-  ]
+
   return (
     <div className="App">
-      <Item items={itemList}/>
+      <Inventory/>
     </div>
   )
 }

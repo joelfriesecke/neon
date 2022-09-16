@@ -1,21 +1,24 @@
-import React from 'react'
+import { React } from 'react'
 
-function Item({items}) {
+function InventoryItem({items}) {
+
   const listItems = items.map((item, key) => (
-    <div key={key} id={'item-'+item.id}>
-      <p>{getName(item.collectionId, item.nameId).name}</p>
-      <hr />
-    </div>
+      <div key={key} id={"item-" + item.uid} className="item flex flex-col p-4 text-white text-xl font-bold justify-center w-max rounded-lg">
+        <div> <span className='text-sm text-gray-200 font-base'>Name: </span>{getName(item.rarityId, item.nameId).name}</div>
+        <div><span className='text-sm text-gray-200 font-base'>Seltenheit: </span>{getRarity(item.rarityId).name}</div>
+      </div>
   ));
   return (
-    <div className="itemList">
-      {generateNeon()}
-      {listItems}
+    <div className='max-w-screen-xl mx-auto'>
+      <div className="flex">Zufalls Int {generateNeon()}</div>
+      <div className="grid gap-10 md: grid-cols-4">
+        {listItems}
+      </div>
     </div>
   );
 }
 
-export default Item
+export default InventoryItem
 
 function generateNeon() {
   const randTier = Math.round(Math.random() * 100);
@@ -58,8 +61,8 @@ function generateNeon() {
   return [rarityId, nameId];
 }
 
-function getName(collectionId, nameId) {
-  const tiers = collection.find(x => x.id === collectionId);
+function getName(rarityId, nameId) {
+  const tiers = neonCollection.find(x => x.id === rarityId);
   return tiers.neons.find(x => x.id === nameId);
 }
 
@@ -68,13 +71,13 @@ function getColor(colorId) {
 }
 
 function getRarity(rarityId) {
-  return rarities.find(x => x.id === rarityId);
+  return neonCollection.find(x => x.id === rarityId);
 }
 
-const collection = [
+const neonCollection = [
   {
     id: 10,
-    name: 'diamond',
+    name: 'Diamond',
     neons: [
       {id: 100, name: 'Blueberryneon'},
       {id: 101, name: 'Neondragon'},
@@ -82,7 +85,7 @@ const collection = [
   },
   {
     id: 20,
-    name: 'gold',
+    name: 'Gold',
     neons: [
       {id: 200, name: 'Neonturtle'},
       {id: 201, name: 'Dolpino Sparkle'},
@@ -91,7 +94,7 @@ const collection = [
   },
   {
     id: 30,
-    name: 'silver',
+    name: 'Silver',
     neons: [
       {id: 300, name: 'Neonjoel'},
       {id: 301, name: 'Dolpino Lorenz'},
