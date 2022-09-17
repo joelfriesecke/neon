@@ -5,14 +5,14 @@ import InventoryItem from './InventoryItem'
 
 function InventoryList() {
 
-    const [neonList, setneonList] = useState([]);
+    const [neonList, setNeonList] = useState([]);
 
     useEffect(() => {
-        const userCollection = async () => {
+        const neonCollection = async () => {
         try {
-            const querySnapshot = await getDocs(collection(db, "neon"));
+            const querySnapshot = await getDocs(collection(db, "generatedNeons"));
             querySnapshot.forEach((doc) => {
-                setneonList(
+                setNeonList(
                   querySnapshot.docs.map((doc) => ({
                     ...doc.data(),
                     id: doc.id,
@@ -23,9 +23,9 @@ function InventoryList() {
             console.log(error);
         }
         }
-        userCollection()
+        neonCollection()
     }, []);
-
+    //console.log(neonList)
     return (
       <div>
         {neonList.map((neon, index) => {
