@@ -1,19 +1,17 @@
 import InventoryList from './InventoryList'
 
 function Inventory() {
-  const test = [];
-  for (let i = 0; i < 100; i++) {
-    test.push(generateNeon().item.name);
-  }
-    console.log(test);
-    return (
-      <div className="max-w-screen-xl mx-auto">
-        <div className="flex"></div>
-        <div className="grid gap-10 md: grid-cols-4">
-          <InventoryList />
-        </div>
+  const neonName = generateNeon().item.name;
+  return (
+    <div className="max-w-screen-xl mx-auto">
+      <div className="flex">
+        {neonName}
       </div>
-    );
+      <div className="grid gap-10 md: grid-cols-4">
+        <InventoryList />
+      </div>
+    </div>
+  );
 }
 
 export default Inventory
@@ -27,7 +25,7 @@ function generateNeon() {
     neons.prob
   ));
   const neons = tierItem.item.neons;
-  return weightedRandom(neons, neonsWeight)
+  return weightedRandom(neons, neonsWeight);
 }
 
 function weightedRandom(items, weights) {
